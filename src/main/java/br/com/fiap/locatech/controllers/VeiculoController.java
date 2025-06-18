@@ -26,7 +26,7 @@ public class VeiculoController {
 
     @GetMapping
     public ResponseEntity<List<Veiculo>> findAllVeiculos(@RequestParam("page") int page, @RequestParam("size") int size){
-        logger.info("Foi acessado o endpoint de /veículos ");
+        logger.info("GET -> Foi acessado o endpoint de /veículos ");
         var veiculos =this.veiculoService.findAllVeiculos(page, size);
         return ResponseEntity.ok(veiculos);
     }
@@ -35,10 +35,30 @@ public class VeiculoController {
     //http://localhost:8080/veiculos/1
     @GetMapping("/{id}")
     public ResponseEntity<Optional<Veiculo>> findVeiculo(@PathVariable Long id){
-        logger.info("Foi acessado o endpoint de /veiculos/"+ id);
+        logger.info("GET -> Foi acessado o endpoint de /veiculos/"+ id);
         var veiculo = this.veiculoService.findVeiculoById(id);
         return ResponseEntity.ok(veiculo);
     }
 
+    @PostMapping
+    public ResponseEntity<Void> saveVeiculo(@RequestBody Veiculo veiculo){
+        logger.info("POST -> Foi acessado o endpoint de salvar veiculo");
+        this.veiculoService.saveVeiculo(veiculo);
+        return ResponseEntity.status(201).build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> updateVeiculo(@PathVariable("id") Long id,  @RequestBody Veiculo veiculo){
+        logger.info("PUT -> Foi acessado o endpoint de atualizar  /veiculo/"+id);
+        this.veiculoService.updateVeiculo(veiculo, id);
+        return ResponseEntity.status(204).build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteVeiculo(@PathVariable("id") Long id){
+        logger.info("DELETE -> Foi acessado o endpoint de deletar /veiculo/"+id);
+        this.veiculoService.deleteVeiculo(id);
+        return ResponseEntity.ok().build();
+    }
 
 }
