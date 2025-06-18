@@ -17,6 +17,8 @@ public class Aluguel {
 
     private String veiculoModelo;
 
+    private String veiculoPlaca;
+
     private String pessoaCpf;
 
     private String pessoaNome;
